@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CV PDF Generator</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        button {
+            background-color: #3a86ff;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            display: block;
+            margin: 30px auto;
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            background-color: #2a66cf;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(58, 134, 255, 0.3);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        p {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        ol {
+            margin-bottom: 30px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>CV PDF Generator</h1>
+        <p>Click the button below to generate a proper PDF for Divyansh Atri's CV</p>
+        
+        <ol>
+            <li>Click the "Generate PDF" button</li>
+            <li>The PDF will be automatically downloaded</li>
+            <li>Copy the PDF to the "files" folder and rename it to "Divyansh_Atri_CV.pdf"</li>
+        </ol>
+        
+        <button onclick="generatePDF()">Generate PDF</button>
+    </div>
+    
+    <script>
+        function generatePDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            // Set font
+            doc.setFont("helvetica", "bold");
+            
+            // Add header
+            doc.setFontSize(22);
+            doc.setTextColor(58, 134, 255);
+            doc.text("Divyansh Atri", 105, 20, { align: "center" });
+            
+            // Contact info
+            doc.setFontSize(11);
+            doc.setTextColor(100, 100, 100);
+            doc.text("Student & Java Developer from Palampur, Himachal Pradesh", 105, 27, { align: "center" });
+            doc.text("Email: divyansh.atri@research.iiit.ac.in | Phone: 9459145045", 105, 33, { align: "center" });
+            doc.text("GitHub: github.com/divyansh-atri | LinkedIn: linkedin.com/in/divyansh-atri-778a53320", 105, 39, { align: "center" });
+            
+            // Add a line
+            doc.setDrawColor(58, 134, 255);
+            doc.setLineWidth(0.5);
+            doc.line(20, 43, 190, 43);
+            
+            // Education section
+            doc.setFontSize(16);
+            doc.setTextColor(58, 134, 255);
+            doc.text("Education", 20, 53);
+            
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(12);
+            doc.setTextColor(0, 0, 0);
+            doc.text("IIIT Hyderabad", 20, 63);
+            
+            doc.setFont("helvetica", "normal");
+            doc.setFontSize(11);
+            doc.setTextColor(80, 80, 80);
+            doc.text("Currently pursuing higher education in Computer Science", 20, 70);
+            doc.text("Present", 170, 63, { align: "right" });
+            
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(12);
+            doc.setTextColor(0, 0, 0);
+            doc.text("PM Shri School Daroh (GSSS)", 20, 80);
+            
+            doc.setFont("helvetica", "normal");
+            doc.setFontSize(11);
+            doc.setTextColor(80, 80, 80);
+            doc.text("Completed school education with excellence in academics and extracurricular activities", 20, 87);
+            doc.text("Graduated", 170, 80, { align: "right" });
+            
+            // Skills section
+            doc.setFontSize(16);
+            doc.setTextColor(58, 134, 255);
+            doc.text("Skills", 20, 101);
+            
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(11);
+            doc.setTextColor(0, 0, 0);
+            doc.text("Java Programming (90%)", 20, 111);
+            doc.text("Calculus (85%)", 20, 119);
+            doc.text("Problem Solving (88%)", 20, 127);
+            doc.text("Scientific Research (92%)", 20, 135);
+            doc.text("Wrestling (88%)", 20, 143);
+            
+            doc.setFont("helvetica", "normal");
+            doc.text("Object-Oriented Programming, Data Structures, Algorithms", 80, 111);
+            doc.text("Mathematical Modeling, Differential Equations", 80, 119);
+            doc.text("Analytical Thinking, Creative Solutions", 80, 127);
+            doc.text("Children Science Congress, Award-winning", 80, 135);
+            doc.text("National-level Competitive Experience", 80, 143);
+            
+            // Achievements section
+            doc.setFontSize(16);
+            doc.setTextColor(58, 134, 255);
+            doc.text("Achievements", 20, 157);
+            
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(12);
+            doc.setTextColor(0, 0, 0);
+            doc.text("Children Science Congress", 20, 167);
+            
+            doc.setFont("helvetica", "normal");
+            doc.setFontSize(11);
+            doc.setTextColor(80, 80, 80);
+            doc.text("Won the Children Science Congress competition twice", 20, 174);
+            
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(12);
+            doc.setTextColor(0, 0, 0);
+            doc.text("National Level Wrestling", 20, 184);
+            
+            doc.setFont("helvetica", "normal");
+            doc.setFontSize(11);
+            doc.setTextColor(80, 80, 80);
+            doc.text("Competed at the national level in wrestling", 20, 191);
+            
+            // Courses section
+            doc.setFontSize(16);
+            doc.setTextColor(58, 134, 255);
+            doc.text("Courses", 20, 205);
+            
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(12);
+            doc.setTextColor(0, 0, 0);
+            doc.text("Calculus Specialization", 20, 215);
+            
+            doc.setFont("helvetica", "normal");
+            doc.setFontSize(11);
+            doc.setTextColor(80, 80, 80);
+            doc.text("Completed various courses on calculus, including differential and integral calculus", 20, 222);
+            doc.text("2023 - 2024", 170, 215, { align: "right" });
+            
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(12);
+            doc.setTextColor(0, 0, 0);
+            doc.text("Advanced Java Programming", 20, 232);
+            
+            doc.setFont("helvetica", "normal");
+            doc.setFontSize(11);
+            doc.setTextColor(80, 80, 80);
+            doc.text("Studied object-oriented design patterns, data structures, and algorithm optimization", 20, 239);
+            doc.text("2022 - 2023", 170, 232, { align: "right" });
+            
+            // Footer
+            doc.setDrawColor(58, 134, 255);
+            doc.setLineWidth(0.5);
+            doc.line(20, 245, 190, 245);
+            
+            doc.setFont("helvetica", "italic");
+            doc.setFontSize(9);
+            doc.setTextColor(100, 100, 100);
+            doc.text("This CV was automatically generated", 105, 253, { align: "center" });
+            
+            // Save the PDF
+            doc.save("Divyansh_Atri_CV.pdf");
+        }
+    </script>
+</body>
+</html> 
