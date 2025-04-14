@@ -1,1 +1,78 @@
- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Add html2pdf library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
+    <style>
+        .download-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--primary-color);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 30px;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+        }
+        
+        @media print {
+            .download-btn {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cv-container">
+    </div>
+    
+    <button onclick="downloadCV()" class="download-btn">
+        <i class="fas fa-download"></i> Download CV
+    </button>
+
+    <script>
+        function downloadCV() {
+            const element = document.querySelector('.cv-container');
+            const opt = {
+                margin: [10, 10],
+                filename: 'Divyansh_Atri_CV.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { 
+                    scale: 2,
+                    useCORS: true,
+                    letterRendering: true
+                },
+                jsPDF: { 
+                    unit: 'mm', 
+                    format: 'a4', 
+                    orientation: 'portrait' 
+                }
+            };
+
+            // Hide download button during PDF generation
+            const downloadBtn = document.querySelector('.download-btn');
+            downloadBtn.style.display = 'none';
+
+            // Generate PDF
+            html2pdf().set(opt).from(element).save().then(() => {
+                // Show download button again
+                downloadBtn.style.display = 'flex';
+            });
+        }
+    </script>
+</body>
+</html>

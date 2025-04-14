@@ -241,15 +241,28 @@
                 </h2>
             </div>
             <div class="analysis-container">
-                <textarea id="textInput" placeholder="Enter text (minimum 10000 words)..." class="analysis-textarea"></textarea>
+                <textarea 
+                    id="textInput" 
+                    placeholder="Enter your text here for analysis (minimum 10000 words recommended)..." 
+                    class="analysis-textarea"
+                ></textarea>
                 <button onclick="analyzeText()" class="analysis-btn">
-                    <i class="fas fa-magic"></i> Analyze Text
+                    <i class="fas fa-magic"></i> 
+                    Analyze Text
                 </button>
                 <div class="results-container">
-                    <div id="basicStats" class="result-section"></div>
-                    <div id="pronounStats" class="result-section"></div>
-                    <div id="prepositionStats" class="result-section"></div>
-                    <div id="articleStats" class="result-section"></div>
+                    <div id="basicStats" class="result-section">
+                        <h3><i class="fas fa-chart-bar"></i> Basic Statistics</h3>
+                    </div>
+                    <div id="pronounStats" class="result-section">
+                        <h3><i class="fas fa-user"></i> Pronoun Analysis</h3>
+                    </div>
+                    <div id="prepositionStats" class="result-section">
+                        <h3><i class="fas fa-link"></i> Preposition Usage</h3>
+                    </div>
+                    <div id="articleStats" class="result-section">
+                        <h3><i class="fas fa-font"></i> Article Analysis</h3>
+                    </div>
                 </div>
             </div>
         </div>

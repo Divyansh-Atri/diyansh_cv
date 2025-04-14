@@ -4,107 +4,184 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Divyansh Atri - CV</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         
-        body {
-            font-family: 'Poppins', sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f8f9fa;
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #3b82f6;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --border-color: #e2e8f0;
+        }
+
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background-color: var(--bg-secondary);
         }
         
         .cv-container {
-            max-width: 800px;
-            margin: 30px auto;
-            padding: 40px;
-            background-color: #fff;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
+            max-width: 850px;
+            margin: 40px auto;
+            padding: 50px;
+            background-color: var(--bg-primary);
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
+            border-radius: 12px;
         }
         
         .header {
-            text-align: center;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
             margin-bottom: 40px;
-            border-bottom: 3px solid #3a86ff;
-            padding-bottom: 20px;
+            padding-bottom: 30px;
+            border-bottom: 2px solid var(--border-color);
         }
         
         .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 5px;
-            color: #1a1a2e;
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
         }
         
         .header p {
             font-size: 1.2rem;
-            color: #555;
+            color: var(--text-secondary);
+            font-weight: 500;
         }
         
         .contact-info {
             display: flex;
-            justify-content: center;
-            gap: 20px;
+            gap: 24px;
             flex-wrap: wrap;
-            margin-top: 20px;
+            margin-top: 16px;
+        }
+        
+        .contact-info span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+        
+        .contact-info i {
+            color: var(--primary-color);
         }
         
         .section {
-            margin-bottom: 30px;
+            margin-bottom: 40px;
         }
         
         .section h2 {
-            font-size: 1.8rem;
-            border-bottom: 2px solid #3a86ff;
-            padding-bottom: 10px;
-            color: #1a1a2e;
-        }
-        
-        .item {
+            font-size: 1.5rem;
+            color: var(--primary-color);
             margin-bottom: 20px;
-        }
-        
-        .item h3 {
-            font-size: 1.4rem;
-            margin-bottom: 5px;
-            color: #3a86ff;
-        }
-        
-        .item p {
-            margin: 5px 0;
-        }
-        
-        .date {
-            font-style: italic;
-            color: #777;
-        }
-        
-        .skills-list {
+            font-weight: 600;
             display: flex;
-            flex-wrap: wrap;
+            align-items: center;
             gap: 10px;
         }
         
+        .section h2::after {
+            content: '';
+            flex: 1;
+            height: 2px;
+            background: var(--border-color);
+            margin-left: 10px;
+        }
+        
+        .item {
+            margin-bottom: 24px;
+            padding-left: 20px;
+            border-left: 2px solid var(--border-color);
+        }
+        
+        .item:hover {
+            border-left-color: var(--primary-color);
+        }
+        
+        .item h3 {
+            font-size: 1.2rem;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        .item p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin: 4px 0;
+        }
+        
+        .date {
+            font-size: 0.85rem;
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+        
+        .skills-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 16px;
+        }
+        
         .skill {
-            background: linear-gradient(135deg, #3a86ff 0%, #8338ec 100%);
-            color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            padding: 12px 16px;
+            border-radius: 8px;
             font-size: 0.9rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .skill-level {
+            font-size: 0.85rem;
+            color: var(--primary-color);
+            font-weight: 500;
         }
         
         @media print {
             body {
-                background-color: #fff;
+                background: white;
             }
             
             .cv-container {
                 box-shadow: none;
                 margin: 0;
-                padding: 20px;
+                padding: 40px;
                 max-width: 100%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .cv-container {
+                margin: 20px;
+                padding: 30px;
+            }
+            
+            .header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .skills-list {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -112,69 +189,82 @@
 <body>
     <div class="cv-container">
         <div class="header">
-            <h1>Divyansh Atri</h1>
-            <p>Student & Java Developer from Palampur, Himachal Pradesh</p>
-            <div class="contact-info">
-                <span>Email: divyanshatri@example.com</span>
-                <span>Phone: +91 9876543210</span>
-                <span>Location: Palampur, Himachal Pradesh</span>
+            <div>
+                <h1>Divyansh Atri</h1>
+                <p>Student & Java Developer</p>
+                <div class="contact-info">
+                    <span><i class="fas fa-envelope"></i> divyansh.atri@research.iiit.ac.in</span>
+                    <span><i class="fas fa-phone"></i> +91 9816733300</span>
+                    <span><i class="fas fa-map-marker-alt"></i> Palampur, Himachal Pradesh</span>
+                </div>
             </div>
         </div>
         
         <div class="section">
-            <h2>Education</h2>
+            <h2><i class="fas fa-graduation-cap"></i> Education</h2>
             <div class="item">
                 <h3>IIIT Hyderabad</h3>
                 <p>Currently pursuing higher education in Computer Science</p>
-                <p class="date">Present</p>
+                <p class="date">2023 - Present</p>
             </div>
             <div class="item">
                 <h3>PM Shri School Daroh (GSSS)</h3>
                 <p>Completed school education with excellence in academics and extracurricular activities</p>
-                <p class="date">Graduated</p>
+                <p class="date">2021 - 2023</p>
             </div>
         </div>
         
         <div class="section">
-            <h2>Skills</h2>
+            <h2><i class="fas fa-code"></i> Technical Skills</h2>
             <div class="skills-list">
-                <div class="skill">Java Programming (90%)</div>
-                <div class="skill">Calculus (85%)</div>
-                <div class="skill">Problem Solving (88%)</div>
-                <div class="skill">Scientific Research (92%)</div>
-                <div class="skill">Wrestling (88%)</div>
-                <div class="skill">Object-Oriented Programming</div>
-                <div class="skill">Data Structures</div>
-                <div class="skill">Algorithms</div>
-                <div class="skill">Mathematical Modeling</div>
+                <div class="skill">
+                    Java Programming <span class="skill-level">90%</span>
+                </div>
+                <div class="skill">
+                    Object-Oriented Programming <span class="skill-level">85%</span>
+                </div>
+                <div class="skill">
+                    Data Structures <span class="skill-level">88%</span>
+                </div>
+                <div class="skill">
+                    Algorithms <span class="skill-level">85%</span>
+                </div>
+                <div class="skill">
+                    Mathematical Modeling <span class="skill-level">90%</span>
+                </div>
+                <div class="skill">
+                    Problem Solving <span class="skill-level">88%</span>
+                </div>
             </div>
         </div>
         
         <div class="section">
-            <h2>Achievements</h2>
+            <h2><i class="fas fa-trophy"></i> Achievements</h2>
             <div class="item">
                 <h3>Children Science Congress</h3>
-                <p>Won the Children Science Congress competition twice</p>
+                <p>Won the Children Science Congress competition twice, demonstrating exceptional research capabilities and innovative thinking</p>
+                <p class="date">2021, 2022</p>
             </div>
             <div class="item">
                 <h3>National Level Wrestling</h3>
-                <p>Competed at the national level in wrestling</p>
+                <p>Competed at the national level in wrestling, showcasing discipline, dedication, and physical excellence</p>
+                <p class="date">2022</p>
             </div>
         </div>
         
         <div class="section">
-            <h2>Courses</h2>
+            <h2><i class="fas fa-book"></i> Courses & Certifications</h2>
             <div class="item">
                 <h3>Calculus Specialization</h3>
-                <p>Completed various courses on calculus, including differential and integral calculus</p>
+                <p>Mastered advanced concepts in differential and integral calculus, including multivariable calculus and applications</p>
                 <p class="date">2023 - 2024</p>
             </div>
             <div class="item">
                 <h3>Advanced Java Programming</h3>
-                <p>Studied object-oriented design patterns, data structures, and algorithm optimization</p>
+                <p>Deep dive into object-oriented design patterns, data structures, and algorithm optimization techniques</p>
                 <p class="date">2022 - 2023</p>
             </div>
         </div>
     </div>
 </body>
-</html> 
+</html>
