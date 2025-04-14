@@ -8,6 +8,15 @@ window.addEventListener('load', function() {
     // Initialize the website after loading
     initWebsite();
 });
+document.addEventListener('click', function(event) {
+    console.log(`Clicked element: ${event.target} with time ${new Date()}`);
+});
+
+document.addEventListener('mouseover', function(event) {
+    console.log(`View element: ${event.target} with time ${new Date()}`);
+});
+
+
 
 function initWebsite() {
     // Handle scroll animations
@@ -152,40 +161,44 @@ function handleStickyNav() {
 
 // Dark mode toggle setup
 function setupDarkMode() {
-    const toggleButton = document.querySelector('#theme-toggle');
-    const toggleText = document.querySelector('.toggle-text');
-    const currentTheme = localStorage.getItem('theme');
+    const themeToggle = document.getElementById('theme-toggle');
+    const body = document.body;
     
-    // Check if a theme preference exists in local storage
-    if (currentTheme) {
-        document.documentElement.setAttribute('data-theme', currentTheme);
-        
-        if (currentTheme === 'dark') {
-            document.body.classList.add('dark-theme');
-            toggleText.textContent = 'Dark Mode';
-        }
-    }
+    // Check for saved theme preference or system preference
+    const savedTheme = localStorage.getItem('theme') || 
+                      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
     
-    // Handle toggle button click
-    toggleButton.addEventListener('click', function() {
-        if (document.body.classList.contains('dark-theme')) {
-            // Switch to light mode
-            document.documentElement.setAttribute('data-theme', 'light');
-            document.body.classList.remove('dark-theme');
-            localStorage.setItem('theme', 'light');
-            toggleText.textContent = 'Light Mode';
-        } else {
-            // Switch to dark mode
-            document.documentElement.setAttribute('data-theme', 'dark');
-            document.body.classList.add('dark-theme');
-            localStorage.setItem('theme', 'dark');
-            toggleText.textContent = 'Dark Mode';
-        }
-        
-        // Add transition animation for smooth theme change
-        document.body.style.transition = 'background-color 0.5s ease, color 0.5s ease';
+    // Apply initial theme
+    applyTheme(savedTheme);
+    
+    // Listen for toggle changes
+    themeToggle.addEventListener('change', function() {
+        const newTheme = this.checked ? 'dark' : 'light';
+        applyTheme(newTheme);
     });
+
+    function applyTheme(theme) {
+        // Update data attribute
+        document.documentElement.setAttribute('data-theme', theme);
+        
+        // Update checkbox state
+        themeToggle.checked = theme === 'dark';
+        
+        // Update body class
+        body.classList.remove('light-theme', 'dark-theme');
+        body.classList.add(`${theme}-theme`);
+        
+        // Store preference
+        localStorage.setItem('theme', theme);
+        
+        // Update meta theme-color
+        document.querySelector('meta[name="theme-color"]')?.setAttribute('content', 
+            theme === 'dark' ? '#1a1f25' : '#ffffff');
+    }
 }
+
+// Initialize dark mode when DOM is loaded
+document.addEventListener('DOMContentLoaded', setupDarkMode);
 
 // Scroll down indicator setup
 function setupScrollIndicator() {
@@ -287,4 +300,217 @@ function setupBackToTop() {
             backToTopButton.style.display = 'none';
         }
     });
-} 
+}
+
+// Text Analysis Functions
+function analyzeText() {
+    const text = document.getElementById('textInput').value;
+    
+    // Basic Statistics
+    const stats = getBasicStats(text);
+    displayBasicStats(stats);
+
+    // Pronouns Analysis
+    const pronounCounts = countPronouns(text);
+    displayPronounStats(pronounCounts);
+
+    // Prepositions Analysis
+    const prepositionCounts = countPrepositions(text);
+    displayPrepositionStats(prepositionCounts);
+
+    // Articles Analysis
+    const articleCounts = countArticles(text);
+    displayArticleStats(articleCounts);
+}
+
+function getBasicStats(text) {
+    return {
+        letters: (text.match(/[a-zA-Z]/g) || []).length,
+        words: text.trim().split(/\s+/).length,
+        spaces: (text.match(/\s/g) || []).length,
+        newlines: (text.match(/\n/g) || []).length,
+        specialSymbols: (text.match(/[^a-zA-Z0-9\s]/g) || []).length
+    };
+}
+
+function countPronouns(text) {
+    const pronouns = {
+        personal: ['i', 'me', 'my', 'mine', 'you', 'your', 'yours', 'he', 'him', 'his', 'she', 'her', 'hers', 'it', 'its', 'we', 'us', 'our', 'ours', 'they', 'them', 'their', 'theirs'],
+        relative: ['who', 'whom', 'whose', 'which', 'that'],
+        demonstrative: ['this', 'that', 'these', 'those'],
+        reflexive: ['myself', 'yourself', 'himself', 'herself', 'itself', 'ourselves', 'yourselves', 'themselves']
+    };
+
+    const words = text.toLowerCase().match(/\b\w+\b/g) || [];
+    const counts = {};
+
+    for (const type in pronouns) {
+        pronouns[type].forEach(pronoun => {
+            const count = words.filter(word => word === pronoun).length;
+            if (count > 0) {
+                counts[pronoun] = count;
+            }
+        });
+    }
+
+    return counts;
+}
+
+function countPrepositions(text) {
+    const prepositions = ['about', 'above', 'across', 'after', 'against', 'along', 'amid', 'among', 'around', 'at', 'before', 'behind', 'below', 'beneath', 'beside', 'between', 'beyond', 'by', 'down', 'during', 'except', 'for', 'from', 'in', 'inside', 'into', 'near', 'of', 'off', 'on', 'onto', 'out', 'outside', 'over', 'past', 'through', 'throughout', 'to', 'toward', 'under', 'underneath', 'until', 'up', 'upon', 'with', 'within', 'without'];
+    
+    const words = text.toLowerCase().match(/\b\w+\b/g) || [];
+    const counts = {};
+
+    prepositions.forEach(prep => {
+        const count = words.filter(word => word === prep).length;
+        if (count > 0) {
+            counts[prep] = count;
+        }
+    });
+
+    return counts;
+}
+
+function countArticles(text) {
+    const articles = ['a', 'an', 'the'];
+    const words = text.toLowerCase().match(/\b\w+\b/g) || [];
+    const counts = {};
+
+    articles.forEach(article => {
+        counts[article] = words.filter(word => word === article).length;
+    });
+
+    return counts;
+}
+
+function displayBasicStats(stats) {
+    document.getElementById('basicStats').innerHTML = `
+        <h3>📊 Basic Statistics</h3>
+        <ul>
+            <li>Letters <span class="stat-value">${stats.letters}</span></li>
+            <li>Words <span class="stat-value">${stats.words}</span></li>
+            <li>Spaces <span class="stat-value">${stats.spaces}</span></li>
+            <li>Newlines <span class="stat-value">${stats.newlines}</span></li>
+            <li>Special Symbols <span class="stat-value">${stats.specialSymbols}</span></li>
+        </ul>
+    `;
+}
+
+function displayPronounStats(counts) {
+    let html = '<h3>🔤 Pronoun Analysis</h3><ul>';
+    for (const [pronoun, count] of Object.entries(counts)) {
+        html += `<li>${pronoun} <span class="stat-value">${count}</span></li>`;
+    }
+    html += '</ul>';
+    document.getElementById('pronounStats').innerHTML = html;
+}
+
+function displayPrepositionStats(counts) {
+    let html = '<h3>📝 Preposition Analysis</h3><ul>';
+    for (const [prep, count] of Object.entries(counts)) {
+        html += `<li>${prep} <span class="stat-value">${count}</span></li>`;
+    }
+    html += '</ul>';
+    document.getElementById('prepositionStats').innerHTML = html;
+}
+
+function displayArticleStats(counts) {
+    let html = '<h3>📚 Article Analysis</h3><ul>';
+    for (const [article, count] of Object.entries(counts)) {
+        html += `<li>${article} <span class="stat-value">${count}</span></li>`;
+    }
+    html += '</ul>';
+    document.getElementById('articleStats').innerHTML = html;
+}
+
+// Email sending function
+function sendEmail(event) {
+    event.preventDefault();
+    
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const subject = document.getElementById('subject').value;
+    const message = document.getElementById('message').value;
+    
+    // Create mailto URL
+    const mailtoLink = `mailto:divyansh.atri@research.iiit.ac.in?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`)}`;
+    
+    // Open default email client
+    window.location.href = mailtoLink;
+    
+    // Show success message
+    const form = document.getElementById('emailForm');
+    const successMsg = document.createElement('div');
+    successMsg.className = 'success-message';
+    successMsg.textContent = 'Email client opened! If nothing happened, please make sure you have an email client configured.';
+    form.appendChild(successMsg);
+    
+    // Reset form
+    form.reset();
+    
+    // Remove success message after 5 seconds
+    setTimeout(() => {
+        successMsg.remove();
+    }, 5000);
+}
+
+// Email Form Handler
+function sendDirectEmail(event) {
+    event.preventDefault();
+    
+    // Show loading state
+    const submitBtn = document.querySelector('.send-btn');
+    const originalBtnText = submitBtn.innerHTML;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+    submitBtn.disabled = true;
+
+    // Get form data
+    const templateParams = {
+        from_name: document.getElementById('senderName').value,
+        from_email: document.getElementById('senderEmail').value,
+        subject: document.getElementById('emailSubject').value,
+        message: document.getElementById('emailMessage').value,
+        to_name: 'Divyansh Atri',
+        reply_to: document.getElementById('senderEmail').value
+    };
+
+    // Send email using EmailJS
+    emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
+        .then(function(response) {
+            showEmailAlert('Message sent successfully!', 'success');
+            document.getElementById('directEmailForm').reset();
+        }, function(error) {
+            showEmailAlert('Failed to send message. Please try again.', 'error');
+        })
+        .finally(() => {
+            // Restore button state
+            submitBtn.innerHTML = originalBtnText;
+            submitBtn.disabled = false;
+        });
+}
+
+function showEmailAlert(message, type) {
+    // Remove existing alerts
+    const existingAlert = document.querySelector('.email-alert');
+    if (existingAlert) {
+        existingAlert.remove();
+    }
+
+    // Create new alert
+    const alert = document.createElement('div');
+    alert.className = `email-alert email-alert-${type}`;
+    alert.innerHTML = `
+        <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
+        ${message}
+    `;
+
+    // Insert alert before the form
+    const form = document.getElementById('directEmailForm');
+    form.parentNode.insertBefore(alert, form);
+
+    // Remove alert after 5 seconds
+    setTimeout(() => alert.remove(), 5000);
+}
+
+// Ensure the styles for alerts are included in your CSS file or inline in your HTML.

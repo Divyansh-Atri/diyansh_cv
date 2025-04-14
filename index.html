@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <!-- Fix the viewport meta tag -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ffffff">
     <title>Divyansh Atri</title>
     <!-- Favicon approaches -->
     <link rel="icon" href="icon.svg" type="image/svg+xml">
@@ -10,6 +12,7 @@
     <link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAA+klEQVQ4EeVSOwrCQBCdrQewsBO1trGzs7K09BKewMZG8ByCZxA8gKWlnZ2tjZ2VINgE37qzZGOCFoLgg8ew+5h5b2Y/Qvx5lbksRyeTRbQToeC6HlmW5di2zfd9/QQMQ1G0TgAwvJNhyzenrTDGdJ7nA9/3O0EQsJSy9QP8MAzZsqyRUmrbNAdwSdJ0KaW8p2nabJpEV2SkD5hSQnmeP7Q/CbD/mQQhxIAABFEUsWmabdu2H+DnsE/BbhzHTZIkU+AGoGsYRt0wjDoB9mmazhDYn0wLQLiAe5/AJhOdJhPd3cNw0rbt3XMXNwQQaJrWFbBf/fZY5G+rAhYjJJGvgJhVAAAAAElFTkSuQmCC">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
     <!-- Loading Screen -->
@@ -19,11 +22,13 @@
 
     <!-- Dark Mode Toggle -->
     <div class="theme-switch-wrapper">
-        <button id="theme-toggle" class="theme-toggle-btn">
-            <span class="icon sun-icon"><i class="fas fa-sun"></i></span>
-            <span class="icon moon-icon"><i class="fas fa-moon"></i></span>
-            <span class="toggle-text">Light Mode</span>
-        </button>
+        <label class="theme-switch">
+            <input type="checkbox" id="theme-toggle">
+            <div class="toggle-icons">
+                <span class="sun-icon"><i class="fas fa-sun"></i></span>
+                <span class="moon-icon"><i class="fas fa-moon"></i></span>
+            </div>
+        </label>
     </div>
 
     <header>
@@ -43,6 +48,7 @@
                 <li><a href="#skills" class="nav-link">Skills</a></li>
                 <li><a href="#education" class="nav-link">Education</a></li>
                 <li><a href="#gallery" class="nav-link">Gallery</a></li>
+                <li><a href="#text-analysis" class="nav-link">Text Analysis</a></li>
             </ul>
         </div>
     </nav>
@@ -224,6 +230,45 @@
             </div>
         </div>
     </section>
+    <section id="text-analysis" class="section">
+    <div class="container">
+        <div class="analysis-box">
+            <div class="text-analysis-header">
+                <h2 class="fade-in">
+                    <i class="fas fa-code"></i>
+                    Text Analysis Tool
+                    <i class="fas fa-code"></i>
+                </h2>
+            </div>
+            <div class="analysis-container">
+                <textarea id="textInput" placeholder="Enter text (minimum 10000 words)..." class="analysis-textarea"></textarea>
+                <button onclick="analyzeText()" class="analysis-btn">
+                    <i class="fas fa-magic"></i> Analyze Text
+                </button>
+                <div class="results-container">
+                    <div id="basicStats" class="result-section"></div>
+                    <div id="pronounStats" class="result-section"></div>
+                    <div id="prepositionStats" class="result-section"></div>
+                    <div id="articleStats" class="result-section"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="connect" class="section">
+    <div class="container">
+        <div class="email-container fade-in">
+            <div class="email-card">
+                <i class="fas fa-envelope pulse"></i>
+                <h3>Let's Connect</h3>
+                <a href="mailto:divyansh.atri@research.iiit.ac.in" class="email-link">
+                    divyansh.atri@research.iiit.ac.in
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
 
     <!-- Image Modal -->
     <div id="imageModal" class="modal">
@@ -256,4 +301,4 @@
 
     <script src="script.js"></script>
 </body>
-</html> 
+</html>
