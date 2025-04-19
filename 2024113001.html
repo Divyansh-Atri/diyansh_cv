@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Marble Stacked Sculpture - 2024113001</title>
+    <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+  </head>
+  <body>
+    <a-scene>
+      <!-- Soft ambient and directional lighting for marble effect -->
+      <a-light type="ambient" color="#FFFFFF" intensity="0.8"></a-light>
+      <a-light type="directional" color="#F1FAEE" intensity="0.4" position="2 4 2"></a-light>
+      <a-sky color="#F1FAEE"></a-sky>
+
+      <!-- Bottom: Dodecahedron (marble white) -->
+      <a-entity geometry="primitive: dodecahedron; radius: 0.7"
+                position="0 0.7 -4"
+                material="color: #F1FAEE; roughness:0.25; metalness:0.15"></a-entity>
+
+      <!-- Middle: Octahedron (same marble white), stacked with no gap -->
+      <!-- Dodecahedron top at y=1.4, so center of octahedron at y=1.4 + 0.7 = 2.1 -->
+      <a-entity geometry="primitive: octahedron; radius: 0.7"
+                position="0 2.1 -4"
+                material="color: #F1FAEE; roughness:0.25; metalness:0.15"></a-entity>
+
+      <!-- Top: Cone (same marble white), stacked with no gap -->
+      <!-- Octahedron top at y=2.8, cone height=1.2, so center at y=2.8 + 0.6 = 3.4 -->
+      <a-cone position="0 3.4 -4"
+              radius-bottom="0.5"
+              radius-top="0.05"
+              height="1.2"
+              color="#F1FAEE"
+              material="roughness:0.2; metalness:0.15"></a-cone>
+
+      <!-- Subtle marble ground for context -->
+      <a-plane position="0 0 -4"
+               rotation="-90 0 0"
+               width="6"
+               height="6"
+               color="#F1FAEE"
+               material="color: #F1FAEE; opacity:0.8"></a-plane>
+    </a-scene>
+  </body>
+</html>
